@@ -30,6 +30,17 @@ for(s 길이){
  cout << s; 
  }
 
+
+ 2025 - 04 - 18
+
+ 가독성 개선을 위한 코드 수정 
+
+ 초기 arr를 길이로 가지고 그 원소들을 0으로 초기화 하는 temp로 수정하기.
+
+ 이전코드보다 길어졌지만 값을 대입하는과정에서 불필요한 연산이 없어졌다
+ 
+
+
 */
 
 
@@ -50,12 +61,15 @@ void solution(int n,int m) {
 	for (int x = 0; x < m;x++) {
 		int i, j;
 		cin >> i >> j;
-		vector<int> temp;
-		for (int k = j ; k >= i ; k--) {
-			temp.push_back(vec[k-1]);
+		vector<int> temp (vec.size(),0); // tempArr 수정
+		int tempidx = i - 1;
+		int vecidx = j - 1;
+		
+		while (tempidx <=(j-1) && vecidx >= (i-1)) {
+			temp[tempidx++] = vec[vecidx--];
 		}
-		for (int k = i; k <= j; k++) {
-			vec[k - 1] = temp[k - i];
+		for (i; i <= j; i++) {  // 위의 예시로 가정하면 temp의 원소 상태 {0,0,4,3,0}
+			vec[i - 1] = temp[i - 1]; // vec[4] = temp[4] vec[3] = temp[3]
 		}
 	}
 	for (int i = 0; i < vec.size() - 1;i++) {
